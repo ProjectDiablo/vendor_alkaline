@@ -3,78 +3,49 @@
 # RisingOS versioning
 
 PRODUCT_SOONG_NAMESPACES += \
-    vendor/rising/version
+    vendor/lineage/version
 
-RISING_FLAVOR := UDC
-RISING_VERSION := 2.1
-RISING_CODENAME := Izanami
-RISING_RELEASE_TYPE := BETA
-RISING_CODE := $(RISING_VERSION)
+DIABLO_VERSION := 1.0
+DIABLO_RELEASE_TYPE := INITIAL
+DIABLO_CODE := $(DIABLO_VERSION)
+DIABLO_MAINTAINER := BUILD_BOT
+DIABLO_RELEASE_TYPE := UNOFFICIAL
 
-RISING_BUILD_DATE := $(shell date -u +%Y%m%d)
+DIABLO_BUILD_DATE := $(shell date -u +%Y%m%d)
 
 CURRENT_DEVICE=$(shell echo "$(TARGET_PRODUCT)" | cut -d'_' -f 2,3)
-MAINTAINER_LIST = $(shell cat vendor/risingOTA/risingOS.maintainers)
-DEVICE_LIST = $(shell cat vendor/risingOTA/risingOS.devices)
 
-ifeq ($(filter $(CURRENT_DEVICE), $(DEVICE_LIST)), $(CURRENT_DEVICE))
-   ifeq ($(filter $(RISING_MAINTAINER), $(MAINTAINER_LIST)), $(RISING_MAINTAINER))
-      RISING_BUILDTYPE := OFFICIAL
-  else 
-     # the builder is overriding official flag on purpose
-     ifeq ($(RISING_BUILDTYPE), OFFICIAL)
-       $(error **********************************************************)
-       $(error *     A violation has been detected, aborting build      *)
-       $(error **********************************************************)
-       RISING_BUILDTYPE := UNOFFICIAL
-     else 
-       $(warning **********************************************************************)
-       $(warning *   There is already an official maintainer for $(CURRENT_DEVICE)    *)
-       $(warning *              Setting build type to UNOFFICIAL                      *)
-       $(warning *    Please contact current official maintainer before distributing  *)
-       $(warning *              the current build to the community.                   *)
-       $(warning **********************************************************************)
-       RISING_BUILDTYPE := UNOFFICIAL
-     endif
-  endif
-else
-   ifeq ($(RISING_BUILDTYPE), OFFICIAL)
-     $(error **********************************************************)
-     $(error *     A violation has been detected, aborting build      *)
-     $(error **********************************************************)
-   endif
-  RISING_BUILDTYPE := COMMUNITY
-endif
-
+# Gapps
 ifeq ($(WITH_GMS), true)
-	ifeq ($(TARGET_CORE_GMS), true)
-    	RISING_PACKAGE_TYPE ?= CORE
-	else 
-    	RISING_PACKAGE_TYPE ?= GAPPS
-	endif
+    $(call inherit-product, vendor/gapps/common/common-vendor.mk)
+    $(call inherit-product, vendor/gapps/common/Android.mk)
+    DIABLO_FLAVOR := UNCHASTE
 else
-    RISING_PACKAGE_TYPE ?= VANILLA
+    DIABLO_FLAVOR := VIRGIN
 endif
+
+include vendor/lineage/config/version.mk
+
 
 # Build version
-RISING_BUILD_VERSION := $(RISING_VERSION)-$(RISING_RELEASE_TYPE)-$(RISING_BUILD_DATE)-$(RISING_PACKAGE_TYPE)-$(RISING_BUILDTYPE)-$(CURRENT_DEVICE)
+DIABLO_BUILD_VERSION := $(DIABLO_VERSION)-$(DIABLO_RELEASE_TYPE)-$(DIABLO_BUILD_DATE)-$(DIABLO_FLAVOR)--$(CURRENT_DEVICE)
 
 # Display version
-RISING_DISPLAY_VERSION := $(RISING_VERSION)-$(RISING_RELEASE_TYPE)-$(RISING_PACKAGE_TYPE)-$(RISING_BUILDTYPE)-$(CURRENT_DEVICE)
+DIABLO_DISPLAY_VERSION := $(DIABLO_VERSION)-$(DIABLO_RELEASE_TYPE)-$(DIABLO_PACKAGE_TYPE)-$(DIABLO_FLAVOR)-$(CURRENT_DEVICE)
 
 # RisingOS properties
 PRODUCT_PRODUCT_PROPERTIES += \
-    ro.rising.maintainer=$(RISING_MAINTAINER) \
-    ro.rising.code=$(RISING_CODENAME) \
-    ro.rising.packagetype=$(RISING_PACKAGE_TYPE) \
-    ro.rising.releasetype=$(RISING_BUILDTYPE) \
-    ro.rising.version?=$(RISING_VERSION) \
-    ro.rising.build.version=$(RISING_BUILD_VERSION) \
-    ro.rising.display.version?=$(RISING_DISPLAY_VERSION) \
-    ro.rising.platform_release_codename=$(RISING_FLAVOR) \
-    ro.rising.device=$(CURRENT_DEVICE) \
-    ro.rising.chipset?=$(RISING_CHIPSET) \
-    ro.rising.storage?=$(RISING_STORAGE) \
-    ro.rising.ram?=$(RISING_RAM) \
-    ro.rising.battery?=$(RISING_BATTERY) \
-    ro.rising.display_resolution?=$(RISING_DISPLAY)
+    ro.diablo.maintainer=$(DIABLO_MAINTAINER) \
+    ro.diablo.code=$(DIABLO_CODENAME) \
+    ro.diablo.packagetype=$(DIABLO_PACKAGE_TYPE) \
+    ro.diablo.releasetype=$(DIABLO_RELEASE_TYPE) \
+    ro.diablo.version?=$(DIABLO_VERSION) \
+    ro.diablo.build.version=$(DIABLO_BUILD_VERSION) \
+    ro.diablo.display.version?=$(DIABLO_DISPLAY_VERSION) \
+    ro.diablo.platform_release_codename=$(DIABLO_FLAVOR) \
+    ro.diablo.device=$(CURRENT_DEVICE) \
+    ro.diablo.chipset?=$(DIABLO_CHIPSET) \
+    ro.diablo.storage?=$(DIABLO_STORAGE) \
+    ro.diablo.ram?=$(DIABLO_RAM) \
+    ro.diablo.battery?=$(DIABLO_BATTERY) \
+    ro.diablo.display_resolution?=$(DIABLO_DISPLAY)

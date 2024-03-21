@@ -17,7 +17,7 @@
 #
 
 #$1=TARGET_DEVICE, $2=PRODUCT_OUT, $3=FILE_NAME
-existingOTAjson=./vendor/risingOTA/$1.json
+existingOTAjson=./vendor/diabloOTA/$1.json
 output=$2/$1.json
 major_version=$(echo $4 | cut -d'.' -f1)
 
@@ -35,7 +35,7 @@ if [ -f $existingOTAjson ]; then
 	oem=`grep -n "\"oem\"" $existingOTAjson | cut -d ":" -f 3 | sed 's/"//g' | sed 's/,//g' | xargs`
 	device=`grep -n "\"device\"" $existingOTAjson | cut -d ":" -f 3 | sed 's/"//g' | sed 's/,//g' | xargs`
 	filename=$3
-	download="https://sourceforge.net/projects/risingos-official/files/${major_version}.x/$6/$1/$filename/download"
+	# download="https://sourceforge.net/xxxx/files/${major_version}.x/$6/$1/$filename/download"
 	version=`echo $4-$5`
 	buildprop=$2/system/build.prop
 	linenr=`grep -n "ro.system.build.date.utc" $buildprop | cut -d':' -f1`
@@ -96,7 +96,6 @@ if [ -f $existingOTAjson ]; then
 			"oem": "'$oem'",
 			"device": "'$device'",
 			"filename": "'$filename'",
-			"download": "'$download'",
 			"timestamp": '$timestamp',
 			"md5": "'$md5'",
 			"sha256": "'$sha256'",
@@ -158,7 +157,6 @@ else
 }' >> $output
 	cat $output
 	echo 'There is no official support for this device yet'
-	echo 'Consider adding official support by reading the documentation at https://github.com/risingOSS-devices/android_vendor_RisingOTA/blob/thirteen/README.md'
 fi
 
 echo ""

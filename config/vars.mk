@@ -1,5 +1,5 @@
 PRODUCT_SOONG_NAMESPACES += \
-    vendor/rising/vars
+    vendor/lineage/vars
 
 ##### vars #####
 

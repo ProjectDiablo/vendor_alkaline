@@ -15,11 +15,11 @@
 #
 
 PRODUCT_SOONG_NAMESPACES += \
-    vendor/rising/prebuilts
+    vendor/lineage/prebuilts
 
 # Overlays
 PRODUCT_PACKAGE_OVERLAYS += \
-    vendor/rising/overlays
+    vendor/lineage/overlays
 
 PRODUCT_PACKAGES += \
     SystemUIClocks-BigNum \
@@ -40,7 +40,7 @@ PRODUCT_PACKAGES += \
     libmorpho_MotionSensor \
     libmorpho_rapid_effect_jni
     
-PREBUILTS_SOURCE_DIR := vendor/rising/prebuilts
+PREBUILTS_SOURCE_DIR := vendor/lineage/prebuilts
 PREBUILTS_ETC_DEST_DIR := $(TARGET_COPY_OUT_PRODUCT)/etc
 PREBUILTS_LIB_SYSTEM_EXT_DEST_DIR := $(TARGET_COPY_OUT_SYSTEM_EXT)/lib64
 

@@ -2,18 +2,18 @@ include vendor/addons/config.mk
 ifeq ($(WITH_GMS), true)
 -include vendor/gms/products/gms.mk
 endif
-include vendor/rising/config/properties.mk
-include vendor/rising/config/packages.mk
-include vendor/rising/config/vars.mk
-include vendor/rising/config/version.mk
-include vendor/rising/audio/audio.mk
-include vendor/rising/overlays/build.mk
-include vendor/rising/prebuilts/prebuilts.mk
+include vendor/lineage/config/properties.mk
+include vendor/lineage/config/packages.mk
+include vendor/lineage/config/vars.mk
+include vendor/lineage/config/version.mk
+include vendor/lineage/audio/audio.mk
+include vendor/lineage/overlays/build.mk
+include vendor/lineage/prebuilts/prebuilts.mk
 include vendor/lineage/config/common_full_phone.mk
 -include vendor/pixeloverlays/config.mk
 
 PRODUCT_SOONG_NAMESPACES += \
-    vendor/rising/common
+    vendor/lineage/common
 
 PRODUCT_ARTIFACT_PATH_REQUIREMENT_ALLOWED_LIST += \
     system/bin/fsck.ntfs \
@@ -65,7 +65,7 @@ PRODUCT_COPY_FILES += \
 ifeq ($(LINEAGE_BUILD),)
 # Extracted APN's from Cheetah
 PRODUCT_COPY_FILES += \
-    vendor/rising/prebuilts/apn/apns-conf.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/apns-conf.xml
+    vendor/lineage/prebuilts/apn/apns-conf.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/apns-conf.xml
 endif
 
-PRODUCT_COPY_FILES += vendor/rising/prebuilts/bootanimation.zip:$(TARGET_COPY_OUT_PRODUCT)/media/bootanimation.zip
+PRODUCT_COPY_FILES += vendor/lineage/prebuilts/bootanimation.zip:$(TARGET_COPY_OUT_PRODUCT)/media/bootanimation.zip

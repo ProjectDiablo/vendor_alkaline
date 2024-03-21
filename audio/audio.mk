@@ -15,9 +15,9 @@
 #
 
 PRODUCT_SOONG_NAMESPACES += \
-    vendor/rising/audio
+    vendor/lineage/audio
 
-AUDIO_SOURCE_DIR := vendor/rising/audio
+AUDIO_SOURCE_DIR := vendor/lineage/audio
 AUDIO_DEST_DIR := $(TARGET_COPY_OUT_PRODUCT)/media/audio
 
 PRODUCT_COPY_FILES += \

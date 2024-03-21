@@ -1,5 +1,5 @@
 PRODUCT_SOONG_NAMESPACES += \
-    vendor/rising/packages
+    vendor/lineage/packages
 
 # /system_ext packages
 PRODUCT_PACKAGES += \
